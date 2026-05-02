@@ -1,0 +1,10 @@
+<footer class="border-t border-ink-200 dark:border-ink-800 mt-24 transition-colors">
+  <div class="mx-auto max-w-5xl px-6 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-ink-500 dark:text-ink-400">
+    <p class="font-mono">© {% now "Y" %} {{ site.owner_name }}. Built with Django.</p>
+    <div class="flex items-center gap-5">
+      <a href="{{ site.social_links.linkedin }}" class="hover:text-ink-900 dark:hover:text-white transition" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="{{ site.social_links.telegram }}" class="hover:text-ink-900 dark:hover:text-white transition" target="_blank" rel="noopener">Telegram</a>
+      <a href="{{ site.social_links.youtube }}" class="hover:text-ink-900 dark:hover:text-white transition" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+</footer>

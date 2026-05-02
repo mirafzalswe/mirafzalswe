@@ -1,0 +1,28 @@
+/* Admin markdown editor polish */
+.EasyMDEContainer .CodeMirror {
+  min-height: 420px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 14px;
+}
+.EasyMDEContainer .editor-toolbar {
+  border-radius: 6px 6px 0 0;
+}
+.EasyMDEContainer .editor-preview,
+.EasyMDEContainer .editor-preview-side {
+  background: #fafafa;
+  padding: 16px 20px;
+}
+.editor-preview img, .editor-preview-side img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+.editor-preview pre, .editor-preview-side pre {
+  background: #0f0f0f;
+  color: #e5e5e5;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.editor-preview code, .editor-preview-side code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}

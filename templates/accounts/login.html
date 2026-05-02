@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Log in — {{ site.owner_name }}{% endblock %}
+
+{% block content %}
+<section class="fade-in max-w-md mx-auto">
+  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// auth</p>
+  <h1 class="text-3xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">Log in</h1>
+  <p class="mt-2 text-sm text-ink-500 dark:text-ink-400">Welcome back.</p>
+
+  <form method="post" class="mt-10">
+    {% csrf_token %}
+    {% for field in form %}
+      {% include "accounts/_form_field.html" with field=field %}
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+      <div class="mb-4 text-sm text-red-500 dark:text-red-400">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <button type="submit"
+            class="w-full px-5 py-3 bg-ink-900 text-white dark:bg-ink-100 dark:text-ink-950 rounded-md font-medium text-sm hover:bg-black dark:hover:bg-white transition">
+      Log in
+    </button>
+  </form>
+
+  <p class="mt-8 text-sm text-ink-500 dark:text-ink-400">
+    No account yet?
+    <a href="{% url 'accounts:signup' %}" class="text-ink-900 dark:text-ink-100 underline underline-offset-4 hover:text-black dark:hover:text-white">Sign up</a>.
+  </p>
+</section>
+{% endblock %}

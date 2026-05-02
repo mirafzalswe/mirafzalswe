@@ -1,0 +1,15 @@
+{% load static %}
+<div class="mb-5">
+  <label for="{{ field.id_for_label }}" class="block text-xs font-mono text-ink-500 dark:text-ink-400 mb-2 uppercase tracking-wider">
+    {{ field.label }}
+  </label>
+  <div class="[&_input]:w-full [&_textarea]:w-full [&_input]:bg-white [&_textarea]:bg-white dark:[&_input]:bg-ink-900 dark:[&_textarea]:bg-ink-900 [&_input]:border [&_textarea]:border [&_input]:border-ink-300 [&_textarea]:border-ink-300 dark:[&_input]:border-ink-700 dark:[&_textarea]:border-ink-700 [&_input]:rounded-md [&_textarea]:rounded-md [&_input]:px-4 [&_input]:py-3 [&_textarea]:px-4 [&_textarea]:py-3 [&_input]:text-ink-900 [&_textarea]:text-ink-900 dark:[&_input]:text-ink-100 dark:[&_textarea]:text-ink-100 [&_input]:text-sm [&_textarea]:text-sm [&_input:focus]:outline-none [&_textarea:focus]:outline-none [&_input:focus]:border-ink-600 [&_textarea:focus]:border-ink-600 dark:[&_input:focus]:border-ink-300 dark:[&_textarea:focus]:border-ink-300 [&_input]:transition">
+    {{ field }}
+  </div>
+  {% if field.help_text %}
+    <p class="mt-2 text-xs text-ink-400 dark:text-ink-500">{{ field.help_text }}</p>
+  {% endif %}
+  {% for error in field.errors %}
+    <p class="mt-2 text-xs text-red-500 dark:text-red-400">{{ error }}</p>
+  {% endfor %}
+</div>

@@ -1,0 +1,69 @@
+{% load static %}
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-ink-950/70 border-b border-ink-200 dark:border-ink-800 transition-colors">
+  <nav class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+    <a href="{% url 'pages:home' %}" class="font-mono text-sm tracking-tight text-ink-900 dark:text-ink-100 hover:opacity-80 transition">
+      mirafzal<span class="text-ink-400">.dev</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm text-ink-600 dark:text-ink-300">
+      <li><a href="{% url 'blogs:index' %}" class="hover:text-ink-900 dark:hover:text-white transition">Blogs</a></li>
+      <li><a href="{% url 'pages:services' %}" class="hover:text-ink-900 dark:hover:text-white transition">Services</a></li>
+      <li><a href="{% url 'pages:about' %}" class="hover:text-ink-900 dark:hover:text-white transition">About</a></li>
+      <li><a href="{% url 'contact:index' %}" class="hover:text-ink-900 dark:hover:text-white transition">Contacts</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3 text-xs">
+      <button
+        id="theme-toggle"
+        data-theme-toggle
+        aria-label="Toggle theme"
+        class="p-2 rounded-md border border-ink-200 dark:border-ink-700 text-ink-700 dark:text-ink-200 hover:border-ink-400 dark:hover:border-ink-400 transition">
+        <svg data-theme-icon="sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg data-theme-icon="moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
+      <div class="hidden md:flex items-center gap-3">
+        {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
+            <a href="{% url 'studio:post_list' %}" class="text-ink-700 dark:text-ink-200 hover:text-ink-900 dark:hover:text-white transition font-mono">studio</a>
+          {% endif %}
+          <span class="text-ink-500 dark:text-ink-400 font-mono">{{ request.user.username }}</span>
+          <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}
+            <button class="text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white transition">Log out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white transition">Log in</a>
+          <a href="{% url 'accounts:signup' %}" class="px-3 py-1.5 border border-ink-300 dark:border-ink-600 rounded-md hover:border-ink-600 dark:hover:border-ink-300 hover:text-ink-900 dark:hover:text-white transition">Sign up</a>
+        {% endif %}
+      </div>
+
+      <button
+        id="mobile-toggle"
+        class="md:hidden text-ink-700 dark:text-ink-200 p-2"
+        aria-label="Open menu"
+        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-ink-200 dark:border-ink-800 bg-white dark:bg-ink-950">
+    <ul class="px-6 py-4 space-y-3 text-ink-700 dark:text-ink-300 text-sm">
+      <li><a href="{% url 'blogs:index' %}" class="block hover:text-ink-900 dark:hover:text-white">Blogs</a></li>
+      <li><a href="{% url 'pages:services' %}" class="block hover:text-ink-900 dark:hover:text-white">Services</a></li>
+      <li><a href="{% url 'pages:about' %}" class="block hover:text-ink-900 dark:hover:text-white">About</a></li>
+      <li><a href="{% url 'contact:index' %}" class="block hover:text-ink-900 dark:hover:text-white">Contacts</a></li>
+      <li class="pt-3 border-t border-ink-200 dark:border-ink-800">
+        {% if request.user.is_authenticated %}
+          <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}
+            <button class="text-ink-500 dark:text-ink-400">Log out ({{ request.user.username }})</button>
+          </form>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="block hover:text-ink-900 dark:hover:text-white">Log in</a>
+          <a href="{% url 'accounts:signup' %}" class="block hover:text-ink-900 dark:hover:text-white">Sign up</a>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</header>

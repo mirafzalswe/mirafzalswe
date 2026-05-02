@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}About — {{ site.owner_name }}{% endblock %}
+
+{% block content %}
+<section class="fade-in">
+  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// about me</p>
+  <h1 class="text-4xl md:text-5xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">About</h1>
+
+  <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+    <aside class="md:col-span-1 space-y-6 text-sm text-ink-600 dark:text-ink-300">
+      <div>
+        <p class="font-mono text-xs text-ink-400 dark:text-ink-500 mb-1">Name</p>
+        <p class="text-ink-900 dark:text-ink-100">{{ site.owner_name }}</p>
+      </div>
+      <div>
+        <p class="font-mono text-xs text-ink-400 dark:text-ink-500 mb-1">Role</p>
+        <p>Backend Engineer · Founder</p>
+      </div>
+      <div>
+        <p class="font-mono text-xs text-ink-400 dark:text-ink-500 mb-1">Based in</p>
+        <p>Remote · Tashkent</p>
+      </div>
+    </aside>
+
+    <div class="md:col-span-2 space-y-12">
+      <div>
+        <h2 class="text-lg font-semibold text-ink-900 dark:text-ink-50 mb-3">Summary</h2>
+        <p class="text-ink-600 dark:text-ink-300 leading-relaxed">
+          Product-oriented backend engineer and founder. 3+ years designing systems
+          with scalability and cost in mind, and shipping products from idea to real
+          users.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold text-ink-900 dark:text-ink-50 mb-3">Experience</h2>
+        <ol class="space-y-8 border-l border-ink-200 dark:border-ink-800 pl-6">
+
+          <li>
+            <p class="font-mono text-xs text-ink-400 dark:text-ink-500">2025 — now · Finora</p>
+            <p class="text-ink-900 dark:text-ink-100 mt-1">Co-founder / Operations Director / Backend Developer</p>
+            <ul class="mt-2 space-y-1.5 text-ink-600 dark:text-ink-300 text-sm leading-relaxed">
+              <li>— Promoted from backend to Ops Director for driving systemic improvements.</li>
+              <li>— Redesigned architecture with Redis, Celery and rate limiting.</li>
+              <li>— Built mapping + parsing layer serving ~80% of requests without the LLM.</li>
+              <li>— Cut tokens from 15–20k to 1–2k per request and cost by ~15×.</li>
+            </ul>
+          </li>
+
+          <li>
+            <p class="font-mono text-xs text-ink-400 dark:text-ink-500">2025 — now · UstozHub</p>
+            <p class="text-ink-900 dark:text-ink-100 mt-1">Founder / Backend Developer</p>
+            <ul class="mt-2 space-y-1.5 text-ink-600 dark:text-ink-300 text-sm leading-relaxed">
+              <li>— Built an education platform from scratch — architecture, MVP, infra solo.</li>
+              <li>— 100k+ visits and 200+ registered teachers.</li>
+            </ul>
+          </li>
+
+          <li>
+            <p class="font-mono text-xs text-ink-400 dark:text-ink-500">2025 · FoodSave</p>
+            <p class="text-ink-900 dark:text-ink-100 mt-1">Founder / Product &amp; Backend Lead</p>
+            <ul class="mt-2 space-y-1.5 text-ink-600 dark:text-ink-300 text-sm leading-relaxed">
+              <li>— Bootstrapped a startup, onboarded 60+ vendors, reached first sales.</li>
+              <li>— Shut it down after honest analysis of market fit and unit economics.</li>
+            </ul>
+          </li>
+
+          <li>
+            <p class="font-mono text-xs text-ink-400 dark:text-ink-500">2024 · TalimOne</p>
+            <p class="text-ink-900 dark:text-ink-100 mt-1">Backend Developer / System Designer</p>
+            <ul class="mt-2 space-y-1.5 text-ink-600 dark:text-ink-300 text-sm leading-relaxed">
+              <li>— Built and sold a commercial CRM for a learning center.</li>
+              <li>— 400+ active students, full role system and analytics.</li>
+            </ul>
+          </li>
+
+          <li>
+            <p class="font-mono text-xs text-ink-400 dark:text-ink-500">2024 · Uzcard</p>
+            <p class="text-ink-900 dark:text-ink-100 mt-1">Backend Developer Intern</p>
+            <ul class="mt-2 space-y-1.5 text-ink-600 dark:text-ink-300 text-sm leading-relaxed">
+              <li>— Automated bank request processing (100–1000/day) with forms and auto-SQL.</li>
+              <li>— Reduced the team needed from 10 people to 2.</li>
+            </ul>
+          </li>
+
+        </ol>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold text-ink-900 dark:text-ink-50 mb-3">Future goals</h2>
+        <p class="text-ink-600 dark:text-ink-300 leading-relaxed">
+          Launch a product that reaches a million users, stay close to the craft,
+          and keep writing openly about the work.
+        </p>
+      </div>
+
+      {% if not request.user.is_authenticated %}
+      <div class="mt-16 border-t border-ink-200 dark:border-ink-800 pt-10">
+        <div class="rounded-lg border border-ink-200 dark:border-ink-800 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div>
+            <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-2">// want to know more?</p>
+            <p class="text-ink-900 dark:text-ink-50 text-lg font-medium">Sign up for the full story.</p>
+          </div>
+          <a href="{% url 'accounts:signup' %}"
+             class="group inline-flex items-center gap-2 px-5 py-3 border border-ink-300 dark:border-ink-600 rounded-md text-sm text-ink-900 dark:text-ink-100 hover:bg-ink-900 hover:text-white dark:hover:bg-ink-100 dark:hover:text-ink-950 transition whitespace-nowrap">
+            Sign up
+            <span class="transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

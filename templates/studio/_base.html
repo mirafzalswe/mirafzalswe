@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="fade-in">
+  <div class="flex items-center justify-between mb-8 pb-4 border-b border-ink-200 dark:border-ink-800">
+    <div>
+      <p class="font-mono text-xs text-ink-400 dark:text-ink-500">// studio</p>
+      <h1 class="text-2xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50 mt-1">{% block studio_title %}Studio{% endblock %}</h1>
+    </div>
+    <nav class="flex items-center gap-4 text-sm">
+      <a href="{% url 'studio:post_list' %}" class="text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">Posts</a>
+      <a href="{% url 'studio:post_create' %}" class="text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">New post</a>
+      <a href="{% url 'studio:media' %}" class="text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">Media</a>
+      <a href="/admin/" class="font-mono text-xs text-ink-400 dark:text-ink-500 hover:text-ink-700 dark:hover:text-ink-200">django admin →</a>
+    </nav>
+  </div>
+
+  {% block studio_content %}{% endblock %}
+</div>
+{% endblock %}
