@@ -1,0 +1,561 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: mirafzalswe 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Uzbek"
+msgstr "Узбекский"
+
+msgid "Blogs"
+msgstr "Блоги"
+
+msgid "Services"
+msgstr "Услуги"
+
+msgid "About"
+msgstr "Обо мне"
+
+msgid "Contacts"
+msgstr "Контакты"
+
+msgid "Switch language"
+msgstr "Сменить язык"
+
+msgid "Toggle theme"
+msgstr "Сменить тему"
+
+msgid "studio"
+msgstr "студия"
+
+msgid "Log out"
+msgstr "Выйти"
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid "Sign up"
+msgstr "Регистрация"
+
+msgid "Open menu"
+msgstr "Открыть меню"
+
+msgid "Built with Django."
+msgstr "Сделано на Django."
+
+msgid "portfolio"
+msgstr "портфолио"
+
+msgid "About Me"
+msgstr "Обо мне"
+
+msgid "focus"
+msgstr "фокус"
+
+msgid "craft"
+msgstr "ремесло"
+
+msgid "writing"
+msgstr "тексты"
+
+msgid "Building startups from idea to product."
+msgstr "Запускаю стартапы — от идеи до продукта."
+
+msgid "Full-stack engineering with a product mindset."
+msgstr "Full-stack разработка с продуктовым мышлением."
+
+msgid "Tech essays and personal notes from the journey."
+msgstr "Технические эссе и личные заметки из пути."
+
+msgid "about me"
+msgstr "обо мне"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Role"
+msgstr "Роль"
+
+msgid "Backend Engineer · Founder"
+msgstr "Backend-разработчик · Основатель"
+
+msgid "Based in"
+msgstr "Локация"
+
+msgid "Remote · Tashkent"
+msgstr "Удалённо · Ташкент"
+
+msgid "Summary"
+msgstr "Кратко"
+
+msgid "Product-oriented backend engineer and founder. 3+ years designing systems with scalability and cost in mind, and shipping products from idea to real users."
+msgstr "Продуктово-ориентированный backend-разработчик и основатель. 3+ года проектирую системы с прицелом на масштабируемость и стоимость, довожу продукты от идеи до реальных пользователей."
+
+msgid "Experience"
+msgstr "Опыт"
+
+msgid "2025 — now · Finora"
+msgstr "2025 — сейчас · Finora"
+
+msgid "Co-founder / Operations Director / Backend Developer"
+msgstr "Сооснователь / Директор по операциям / Backend-разработчик"
+
+msgid "Promoted from backend to Ops Director for driving systemic improvements."
+msgstr "Переведён из backend в Ops Director за системные улучшения."
+
+msgid "Redesigned architecture with Redis, Celery and rate limiting."
+msgstr "Перепроектировал архитектуру: Redis, Celery, rate limiting."
+
+msgid "Built mapping + parsing layer serving ~80% of requests without the LLM."
+msgstr "Построил слой маппинга и парсинга — ~80% запросов обслуживаются без LLM."
+
+msgid "Cut tokens from 15–20k to 1–2k per request and cost by ~15×."
+msgstr "Сократил расход токенов с 15–20k до 1–2k за запрос и стоимость в ~15 раз."
+
+msgid "2025 — now · UstozHub"
+msgstr "2025 — сейчас · UstozHub"
+
+msgid "Founder / Backend Developer"
+msgstr "Основатель / Backend-разработчик"
+
+msgid "Built an education platform from scratch — architecture, MVP, infra solo."
+msgstr "Построил образовательную платформу с нуля — архитектура, MVP, инфраструктура в одиночку."
+
+msgid "100k+ visits and 200+ registered teachers."
+msgstr "100k+ визитов и 200+ зарегистрированных преподавателей."
+
+msgid "2025 · FoodSave"
+msgstr "2025 · FoodSave"
+
+msgid "Founder / Product & Backend Lead"
+msgstr "Основатель / Лид продукта и backend"
+
+msgid "Bootstrapped a startup, onboarded 60+ vendors, reached first sales."
+msgstr "Запустил стартап с нуля, подключил 60+ продавцов, дошёл до первых продаж."
+
+msgid "Shut it down after honest analysis of market fit and unit economics."
+msgstr "Закрыл проект после честного анализа product/market fit и юнит-экономики."
+
+msgid "2024 · TalimOne"
+msgstr "2024 · TalimOne"
+
+msgid "Backend Developer / System Designer"
+msgstr "Backend-разработчик / Системный дизайнер"
+
+msgid "Built and sold a commercial CRM for a learning center."
+msgstr "Разработал и продал коммерческую CRM для учебного центра."
+
+msgid "400+ active students, full role system and analytics."
+msgstr "400+ активных студентов, полная система ролей и аналитика."
+
+msgid "2024 · Uzcard"
+msgstr "2024 · Uzcard"
+
+msgid "Backend Developer Intern"
+msgstr "Backend-разработчик (стажёр)"
+
+msgid "Automated bank request processing (100–1000/day) with forms and auto-SQL."
+msgstr "Автоматизировал обработку банковских заявок (100–1000/день) формами и авто-SQL."
+
+msgid "Reduced the team needed from 10 people to 2."
+msgstr "Сократил необходимую команду с 10 человек до 2."
+
+msgid "Future goals"
+msgstr "Цели"
+
+msgid "Launch a product that reaches a million users, stay close to the craft, and keep writing openly about the work."
+msgstr "Запустить продукт, который достигнет миллиона пользователей, остаться близко к ремеслу и продолжать открыто писать о работе."
+
+msgid "want to know more?"
+msgstr "хотите узнать больше?"
+
+msgid "Sign up for the full story."
+msgstr "Зарегистрируйтесь и читайте полностью."
+
+msgid "services"
+msgstr "услуги"
+
+msgid "What I offer"
+msgstr "Что я предлагаю"
+
+msgid "A dedicated page lives on a separate site. Everything I offer, case studies and pricing, is there."
+msgstr "Отдельная страница живёт на другом сайте — там все услуги, кейсы и цены."
+
+msgid "Visit services site"
+msgstr "Перейти к услугам"
+
+msgid "Two streams — one public, one personal."
+msgstr "Два потока — публичный и личный."
+
+msgid "public"
+msgstr "публичный"
+
+msgid "private"
+msgstr "личный"
+
+msgid "Tech Blogs"
+msgstr "Технические блоги"
+
+msgid "Personal Blogs"
+msgstr "Личные блоги"
+
+msgid "Essays on engineering, systems, and the craft. Open to everyone."
+msgstr "Эссе об инженерии, системах и ремесле. Открыты для всех."
+
+msgid "Read posts"
+msgstr "Читать посты"
+
+msgid "Notes from the journey. Sign up and request access — visible after approval."
+msgstr "Заметки из пути. Зарегистрируйтесь и запросите доступ — откроется после одобрения."
+
+msgid "Request access"
+msgstr "Запросить доступ"
+
+msgid "all blogs"
+msgstr "все блоги"
+
+msgid "Public notes on engineering and product."
+msgstr "Публичные заметки про инженерию и продукт."
+
+msgid "No posts yet."
+msgstr "Постов пока нет."
+
+msgid "prev"
+msgstr "назад"
+
+msgid "next"
+msgstr "вперёд"
+
+msgid "access granted"
+msgstr "доступ открыт"
+
+msgid "Private notes — thank you for reading."
+msgstr "Личные заметки — спасибо, что читаете."
+
+msgid "No personal posts published yet."
+msgstr "Личных постов пока не опубликовано."
+
+msgid "tech blogs"
+msgstr "технические блоги"
+
+msgid "Tech"
+msgstr "Tech"
+
+msgid "personal blogs"
+msgstr "личные блоги"
+
+msgid "Personal"
+msgstr "Личное"
+
+msgid "contact"
+msgstr "контакты"
+
+msgid "Direct channels and a form if you'd rather write a note."
+msgstr "Прямые каналы и форма, если удобнее написать сообщение."
+
+msgid "Channels"
+msgstr "Каналы"
+
+msgid "Email"
+msgstr "Почта"
+
+msgid "Buy Me a Coffee"
+msgstr "Buy Me a Coffee"
+
+msgid "Send a message"
+msgstr "Отправить сообщение"
+
+msgid "Send message"
+msgstr "Отправить"
+
+msgid "Your name"
+msgstr "Ваше имя"
+
+msgid "What's on your mind?"
+msgstr "О чём хотите написать?"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Thanks — your message is in. I'll reply soon."
+msgstr "Спасибо — сообщение получено. Скоро отвечу."
+
+msgid "auth"
+msgstr "авторизация"
+
+msgid "Welcome back."
+msgstr "С возвращением."
+
+msgid "No account yet?"
+msgstr "Ещё нет аккаунта?"
+
+msgid "Create account"
+msgstr "Создать аккаунт"
+
+msgid "Needed to request access to personal blogs."
+msgstr "Нужен для запроса доступа к личным блогам."
+
+msgid "Already have an account?"
+msgstr "Уже есть аккаунт?"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Tell me a bit about why you'd like access…"
+msgstr "Расскажите немного, зачем вам доступ…"
+
+msgid "Reason"
+msgstr "Причина"
+
+msgid "status: pending"
+msgstr "статус: на рассмотрении"
+
+#, python-format
+msgid "Your request was submitted on %(date)s. You'll see personal blogs here once it's approved."
+msgstr "Ваш запрос отправлен %(date)s. Личные блоги появятся здесь после одобрения."
+
+msgid "Personal blogs are private. Share a short note and I'll review it."
+msgstr "Личные блоги закрытые. Напишите короткую записку — я её посмотрю."
+
+msgid "Submit request"
+msgstr "Отправить запрос"
+
+msgid "Account created. You can now request access to personal blogs."
+msgstr "Аккаунт создан. Теперь можно запросить доступ к личным блогам."
+
+msgid "You already have a pending request."
+msgstr "У вас уже есть запрос на рассмотрении."
+
+msgid "Request submitted. You'll get access once it's approved."
+msgstr "Запрос отправлен. Доступ откроется после одобрения."
+
+msgid "Studio"
+msgstr "Студия"
+
+msgid "Posts"
+msgstr "Посты"
+
+msgid "New post"
+msgstr "Новый пост"
+
+msgid "Media"
+msgstr "Медиа"
+
+msgid "django admin"
+msgstr "django admin"
+
+msgid "Studio — Posts"
+msgstr "Студия — Посты"
+
+#, python-format
+msgid "%(counter)s post"
+msgid_plural "%(counter)s posts"
+msgstr[0] "%(counter)s пост"
+msgstr[1] "%(counter)s поста"
+msgstr[2] "%(counter)s постов"
+
+msgid "published"
+msgstr "опубликовано"
+
+msgid "draft"
+msgstr "черновик"
+
+msgid "view"
+msgstr "посмотреть"
+
+msgid "edit"
+msgstr "редактировать"
+
+msgid "delete"
+msgstr "удалить"
+
+#, python-format
+msgid "Delete «%(title)s»?"
+msgstr "Удалить «%(title)s»?"
+
+msgid "Create your first post"
+msgstr "Создать первый пост"
+
+msgid "Studio — Media"
+msgstr "Студия — Медиа"
+
+msgid "Media library"
+msgstr "Медиатека"
+
+msgid "Upload images and stickers. Click an asset to copy its Markdown."
+msgstr "Загружайте картинки и стикеры. Кликните по элементу, чтобы скопировать Markdown."
+
+msgid "Image"
+msgstr "Картинка"
+
+msgid "Sticker"
+msgstr "Стикер"
+
+msgid "Upload"
+msgstr "Загрузить"
+
+msgid "copy md"
+msgstr "копир. md"
+
+msgid "No assets yet."
+msgstr "Файлов пока нет."
+
+msgid "copied ✓"
+msgstr "скопировано ✓"
+
+msgid "uploading…"
+msgstr "загрузка…"
+
+msgid "error"
+msgstr "ошибка"
+
+#, python-format
+msgid "Edit — %(title)s"
+msgstr "Редактирование — %(title)s"
+
+msgid "Edit post"
+msgstr "Редактирование поста"
+
+msgid "Please fix:"
+msgstr "Пожалуйста, исправьте:"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Cover image"
+msgstr "Обложка"
+
+msgid "Current:"
+msgstr "Текущая:"
+
+msgid "Translations"
+msgstr "Переводы"
+
+msgid "Title (EN)"
+msgstr "Заголовок (EN)"
+
+msgid "Title (RU)"
+msgstr "Заголовок (RU)"
+
+msgid "Title (UZ)"
+msgstr "Заголовок (UZ)"
+
+msgid "Excerpt (EN)"
+msgstr "Краткое описание (EN)"
+
+msgid "Excerpt (RU)"
+msgstr "Краткое описание (RU)"
+
+msgid "Excerpt (UZ)"
+msgstr "Краткое описание (UZ)"
+
+msgid "Content (EN, Markdown)"
+msgstr "Контент (EN, Markdown)"
+
+msgid "Content (RU, Markdown)"
+msgstr "Контент (RU, Markdown)"
+
+msgid "Content (UZ, Markdown)"
+msgstr "Контент (UZ, Markdown)"
+
+msgid "Content (EN)"
+msgstr "Контент (EN)"
+
+msgid "Content (RU)"
+msgstr "Контент (RU)"
+
+msgid "Content (UZ)"
+msgstr "Контент (UZ)"
+
+msgid "publish"
+msgstr "опубликовать"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "updated"
+msgstr "обновлено"
+
+msgid "Short summary shown in listings."
+msgstr "Краткое описание для списков."
+
+msgid "Markdown source"
+msgstr "Исходник Markdown"
+
+msgid "Tech Blog"
+msgstr "Технический блог"
+
+msgid "Personal Blog"
+msgstr "Личный блог"
+
+msgid "Post"
+msgstr "Пост"
+
+msgid "Media asset"
+msgstr "Медиафайл"
+
+msgid "Media assets"
+msgstr "Медиафайлы"
+
+msgid "Kind"
+msgstr "Тип"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Preview"
+msgstr "Превью"
+
+msgid "Markdown (copy)"
+msgstr "Markdown (копировать)"
+
+msgid "Published"
+msgstr "Опубликовано"
+
+#, python-format
+msgid "Post «%(title)s» created."
+msgstr "Пост «%(title)s» создан."
+
+msgid "Saved."
+msgstr "Сохранено."
+
+msgid "Post deleted."
+msgstr "Пост удалён."
+
+# Django auth built-in strings (override / fill gaps in Django's own catalog)
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Обязательно. Не более 150 символов. Только буквы, цифры и @/./+/-/_."
+
+msgid "Your password can’t be too similar to your other personal information."
+msgstr "Пароль не должен быть слишком похож на другие ваши личные данные."
+
+msgid "Your password must contain at least 8 characters."
+msgstr "Пароль должен содержать не менее 8 символов."
+
+msgid "Your password can’t be a commonly used password."
+msgstr "Пароль не должен быть слишком распространённым."
+
+msgid "Your password can’t be entirely numeric."
+msgstr "Пароль не может состоять только из цифр."
+
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+msgid "Enter the same password as before, for verification."
+msgstr "Введите тот же пароль, что и выше — для проверки."

@@ -1,11 +1,11 @@
 <article class="py-6 border-b border-ink-200 dark:border-ink-800 last:border-b-0 group">
   <a href="{{ post.get_absolute_url }}" class="block">
     <div class="flex items-baseline justify-between gap-4">
-      <h3 class="text-xl font-semibold text-ink-900 dark:text-ink-100 group-hover:text-black dark:group-hover:text-white transition">{{ post.title }}</h3>
-      <time class="font-mono text-xs text-ink-400 dark:text-ink-500 shrink-0">{{ post.created_at|date:"M d, Y" }}</time>
+      <h3 class="text-xl font-semibold text-ink-900 dark:text-ink-100 group-hover:text-black dark:group-hover:text-white transition">{{ post.display_title }}</h3>
+      <time class="font-mono text-xs text-ink-400 dark:text-ink-500 shrink-0">{{ post.created_at|date:"DATE_FORMAT" }}</time>
     </div>
-    {% if post.excerpt %}
-      <p class="mt-2 text-sm text-ink-500 dark:text-ink-400 leading-relaxed">{{ post.excerpt }}</p>
+    {% if post.display_excerpt %}
+      <p class="mt-2 text-sm text-ink-500 dark:text-ink-400 leading-relaxed">{{ post.display_excerpt }}</p>
     {% endif %}
   </a>
 </article>

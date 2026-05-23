@@ -1,4 +1,6 @@
-{% load static %}
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
 <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-ink-950/70 border-b border-ink-200 dark:border-ink-800 transition-colors">
   <nav class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
     <a href="{% url 'pages:home' %}" class="font-mono text-sm tracking-tight text-ink-900 dark:text-ink-100 hover:opacity-80 transition">
@@ -6,17 +8,53 @@
     </a>
 
     <ul class="hidden md:flex items-center gap-8 text-sm text-ink-600 dark:text-ink-300">
-      <li><a href="{% url 'blogs:index' %}" class="hover:text-ink-900 dark:hover:text-white transition">Blogs</a></li>
-      <li><a href="{% url 'pages:services' %}" class="hover:text-ink-900 dark:hover:text-white transition">Services</a></li>
-      <li><a href="{% url 'pages:about' %}" class="hover:text-ink-900 dark:hover:text-white transition">About</a></li>
-      <li><a href="{% url 'contact:index' %}" class="hover:text-ink-900 dark:hover:text-white transition">Contacts</a></li>
+      <li><a href="{% url 'blogs:index' %}" class="hover:text-ink-900 dark:hover:text-white transition">{% trans "Blogs" %}</a></li>
+      <li><a href="{% url 'pages:services' %}" class="hover:text-ink-900 dark:hover:text-white transition">{% trans "Services" %}</a></li>
+      <li><a href="{% url 'pages:about' %}" class="hover:text-ink-900 dark:hover:text-white transition">{% trans "About" %}</a></li>
+      <li><a href="{% url 'contact:index' %}" class="hover:text-ink-900 dark:hover:text-white transition">{% trans "Contacts" %}</a></li>
     </ul>
 
     <div class="flex items-center gap-3 text-xs">
+      <div class="relative" data-lang-switch>
+        <button
+          type="button"
+          data-lang-toggle
+          aria-label="{% trans 'Switch language' %}"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          class="inline-flex items-center gap-1.5 px-2.5 py-2 rounded-md border border-ink-200 dark:border-ink-700 text-ink-700 dark:text-ink-200 hover:border-ink-400 dark:hover:border-ink-400 transition font-mono uppercase">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span data-lang-current>{{ LANGUAGE_CODE|upper }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div data-lang-menu
+             class="hidden absolute right-0 mt-2 w-36 rounded-md border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 shadow-lg overflow-hidden z-50">
+          <form action="{% url 'set_language' %}" method="post" class="flex flex-col">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" name="language" value="en"
+                    class="flex items-center justify-between px-3 py-2 text-left text-xs font-mono uppercase text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800 transition {% if LANGUAGE_CODE == 'en' %}bg-ink-50 dark:bg-ink-800{% endif %}">
+              <span>English</span>
+              <span class="text-ink-400 dark:text-ink-500">EN</span>
+            </button>
+            <button type="submit" name="language" value="ru"
+                    class="flex items-center justify-between px-3 py-2 text-left text-xs font-mono uppercase text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800 transition border-t border-ink-100 dark:border-ink-800 {% if LANGUAGE_CODE == 'ru' %}bg-ink-50 dark:bg-ink-800{% endif %}">
+              <span>Русский</span>
+              <span class="text-ink-400 dark:text-ink-500">RU</span>
+            </button>
+            <button type="submit" name="language" value="uz"
+                    class="flex items-center justify-between px-3 py-2 text-left text-xs font-mono uppercase text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800 transition border-t border-ink-100 dark:border-ink-800 {% if LANGUAGE_CODE == 'uz' %}bg-ink-50 dark:bg-ink-800{% endif %}">
+              <span>O'zbekcha</span>
+              <span class="text-ink-400 dark:text-ink-500">UZ</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
       <button
         id="theme-toggle"
         data-theme-toggle
-        aria-label="Toggle theme"
+        aria-label="{% trans 'Toggle theme' %}"
         class="p-2 rounded-md border border-ink-200 dark:border-ink-700 text-ink-700 dark:text-ink-200 hover:border-ink-400 dark:hover:border-ink-400 transition">
         <svg data-theme-icon="sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
         <svg data-theme-icon="moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -25,22 +63,22 @@
       <div class="hidden md:flex items-center gap-3">
         {% if request.user.is_authenticated %}
           {% if request.user.is_staff %}
-            <a href="{% url 'studio:post_list' %}" class="text-ink-700 dark:text-ink-200 hover:text-ink-900 dark:hover:text-white transition font-mono">studio</a>
+            <a href="{% url 'studio:post_list' %}" class="text-ink-700 dark:text-ink-200 hover:text-ink-900 dark:hover:text-white transition font-mono">{% trans "studio" %}</a>
           {% endif %}
           <span class="text-ink-500 dark:text-ink-400 font-mono">{{ request.user.username }}</span>
           <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}
-            <button class="text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white transition">Log out</button>
+            <button class="text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white transition">{% trans "Log out" %}</button>
           </form>
         {% else %}
-          <a href="{% url 'accounts:login' %}" class="text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white transition">Log in</a>
-          <a href="{% url 'accounts:signup' %}" class="px-3 py-1.5 border border-ink-300 dark:border-ink-600 rounded-md hover:border-ink-600 dark:hover:border-ink-300 hover:text-ink-900 dark:hover:text-white transition">Sign up</a>
+          <a href="{% url 'accounts:login' %}" class="text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white transition">{% trans "Log in" %}</a>
+          <a href="{% url 'accounts:signup' %}" class="px-3 py-1.5 border border-ink-300 dark:border-ink-600 rounded-md hover:border-ink-600 dark:hover:border-ink-300 hover:text-ink-900 dark:hover:text-white transition">{% trans "Sign up" %}</a>
         {% endif %}
       </div>
 
       <button
         id="mobile-toggle"
         class="md:hidden text-ink-700 dark:text-ink-200 p-2"
-        aria-label="Open menu"
+        aria-label="{% trans 'Open menu' %}"
         onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -50,20 +88,60 @@
 
   <div id="mobile-menu" class="hidden md:hidden border-t border-ink-200 dark:border-ink-800 bg-white dark:bg-ink-950">
     <ul class="px-6 py-4 space-y-3 text-ink-700 dark:text-ink-300 text-sm">
-      <li><a href="{% url 'blogs:index' %}" class="block hover:text-ink-900 dark:hover:text-white">Blogs</a></li>
-      <li><a href="{% url 'pages:services' %}" class="block hover:text-ink-900 dark:hover:text-white">Services</a></li>
-      <li><a href="{% url 'pages:about' %}" class="block hover:text-ink-900 dark:hover:text-white">About</a></li>
-      <li><a href="{% url 'contact:index' %}" class="block hover:text-ink-900 dark:hover:text-white">Contacts</a></li>
+      <li><a href="{% url 'blogs:index' %}" class="block hover:text-ink-900 dark:hover:text-white">{% trans "Blogs" %}</a></li>
+      <li><a href="{% url 'pages:services' %}" class="block hover:text-ink-900 dark:hover:text-white">{% trans "Services" %}</a></li>
+      <li><a href="{% url 'pages:about' %}" class="block hover:text-ink-900 dark:hover:text-white">{% trans "About" %}</a></li>
+      <li><a href="{% url 'contact:index' %}" class="block hover:text-ink-900 dark:hover:text-white">{% trans "Contacts" %}</a></li>
       <li class="pt-3 border-t border-ink-200 dark:border-ink-800">
         {% if request.user.is_authenticated %}
           <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}
-            <button class="text-ink-500 dark:text-ink-400">Log out ({{ request.user.username }})</button>
+            <button class="text-ink-500 dark:text-ink-400">{% trans "Log out" %} ({{ request.user.username }})</button>
           </form>
         {% else %}
-          <a href="{% url 'accounts:login' %}" class="block hover:text-ink-900 dark:hover:text-white">Log in</a>
-          <a href="{% url 'accounts:signup' %}" class="block hover:text-ink-900 dark:hover:text-white">Sign up</a>
+          <a href="{% url 'accounts:login' %}" class="block hover:text-ink-900 dark:hover:text-white">{% trans "Log in" %}</a>
+          <a href="{% url 'accounts:signup' %}" class="block hover:text-ink-900 dark:hover:text-white">{% trans "Sign up" %}</a>
         {% endif %}
       </li>
     </ul>
   </div>
 </header>
+
+<script>
+  (function () {
+    function init() {
+      var wrapper = document.querySelector('[data-lang-switch]');
+      if (!wrapper) return;
+      var btn = wrapper.querySelector('[data-lang-toggle]');
+      var menu = wrapper.querySelector('[data-lang-menu]');
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var willOpen = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(willOpen));
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!wrapper.contains(e.target)) {
+          menu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          menu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

@@ -1,10 +1,11 @@
 {% extends "studio/_base.html" %}
+{% load i18n %}
 
-{% block title %}Studio — Media{% endblock %}
-{% block studio_title %}Media library{% endblock %}
+{% block title %}{% trans "Studio — Media" %}{% endblock %}
+{% block studio_title %}{% trans "Media library" %}{% endblock %}
 
 {% block studio_content %}
-<p class="text-sm text-ink-500 dark:text-ink-400 mb-6">Upload images and stickers. Click an asset to copy its Markdown.</p>
+<p class="text-sm text-ink-500 dark:text-ink-400 mb-6">{% trans "Upload images and stickers. Click an asset to copy its Markdown." %}</p>
 
 <form method="post" action="{% url 'studio:upload' %}" enctype="multipart/form-data" id="upload-form"
       class="p-6 border border-dashed border-ink-300 dark:border-ink-700 rounded-lg mb-8 flex items-center gap-4 flex-wrap">
@@ -12,10 +13,10 @@
   <input type="file" name="file" accept="image/*" required
          class="text-sm text-ink-600 dark:text-ink-300" />
   <select name="kind" class="studio-input" style="width:auto;padding:8px 12px;">
-    <option value="image">Image</option>
-    <option value="sticker">Sticker</option>
+    <option value="image">{% trans "Image" %}</option>
+    <option value="sticker">{% trans "Sticker" %}</option>
   </select>
-  <button type="submit" class="px-4 py-2 bg-ink-900 dark:bg-ink-50 text-white dark:text-ink-900 text-sm rounded-md hover:opacity-90">Upload</button>
+  <button type="submit" class="px-4 py-2 bg-ink-900 dark:bg-ink-50 text-white dark:text-ink-900 text-sm rounded-md hover:opacity-90">{% trans "Upload" %}</button>
   <span id="upload-status" class="text-xs font-mono text-ink-400"></span>
 </form>
 
@@ -25,40 +26,44 @@
       <img src="{{ a.file.url }}" alt="" class="w-full h-32 object-contain rounded" />
       <div class="mt-2 flex items-center justify-between">
         <span class="font-mono text-[10px] px-1.5 py-0.5 rounded border border-ink-200 dark:border-ink-700 text-ink-500 dark:text-ink-400 uppercase">{{ a.kind }}</span>
-        <button type="button" class="text-xs text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white copy-btn" data-md="{{ a.markdown_snippet }}">copy md</button>
+        <button type="button" class="text-xs text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white copy-btn" data-md="{{ a.markdown_snippet }}">{% trans "copy md" %}</button>
       </div>
       <p class="mt-1 text-[11px] text-ink-400 truncate" title="{{ a.name }}">{{ a.name|default:a.file.name }}</p>
     </div>
   {% empty %}
-    <p class="col-span-full text-center text-ink-400 font-mono text-sm py-12">No assets yet.</p>
+    <p class="col-span-full text-center text-ink-400 font-mono text-sm py-12">{% trans "No assets yet." %}</p>
   {% endfor %}
 </div>
 
 <script>
-document.querySelectorAll(".copy-btn").forEach(function (b) {
-  b.addEventListener("click", function () {
-    navigator.clipboard.writeText(b.dataset.md);
-    var orig = b.textContent;
-    b.textContent = "copied ✓";
-    setTimeout(function () { b.textContent = orig; }, 1200);
-  });
-});
+  var I18N_COPIED = "{% trans 'copied ✓' %}";
+  var I18N_UPLOADING = "{% trans 'uploading…' %}";
+  var I18N_ERROR = "{% trans 'error' %}";
 
-document.getElementById("upload-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  var form = e.target;
-  var fd = new FormData(form);
-  document.getElementById("upload-status").textContent = "uploading…";
-  fetch(form.action, {
-    method: "POST",
-    headers: { "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value },
-    body: fd,
-    credentials: "same-origin",
-  }).then(function (r) { return r.json(); }).then(function () {
-    window.location.reload();
-  }).catch(function () {
-    document.getElementById("upload-status").textContent = "error";
+  document.querySelectorAll(".copy-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      navigator.clipboard.writeText(b.dataset.md);
+      var orig = b.textContent;
+      b.textContent = I18N_COPIED;
+      setTimeout(function () { b.textContent = orig; }, 1200);
+    });
   });
-});
+
+  document.getElementById("upload-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var form = e.target;
+    var fd = new FormData(form);
+    document.getElementById("upload-status").textContent = I18N_UPLOADING;
+    fetch(form.action, {
+      method: "POST",
+      headers: { "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value },
+      body: fd,
+      credentials: "same-origin",
+    }).then(function (r) { return r.json(); }).then(function () {
+      window.location.reload();
+    }).catch(function () {
+      document.getElementById("upload-status").textContent = I18N_ERROR;
+    });
+  });
 </script>
 {% endblock %}

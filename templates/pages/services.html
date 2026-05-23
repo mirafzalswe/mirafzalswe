@@ -1,21 +1,23 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Services — {{ site.owner_name }}{% endblock %}
+{% block title %}{% trans "Services" %} — {{ site.owner_name }}{% endblock %}
 
 {% block content %}
 <section class="fade-in min-h-[60vh] flex flex-col justify-center items-start">
-  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// services</p>
-  <h1 class="text-4xl md:text-5xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">
-    What I offer
-  </h1>
+  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// {% trans "services" %}</p>
+  <a href="{{ site.services_external_url }}" target="_blank" rel="noopener" class="group">
+    <h1 class="text-4xl md:text-5xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50 group-hover:underline">
+      {% trans "What I offer" %}
+    </h1>
+  </a>
   <p class="mt-6 text-ink-600 dark:text-ink-300 max-w-xl">
-    A dedicated page lives on a separate site. Everything I offer, case studies
-    and pricing, is there.
+    {% trans "A dedicated page lives on a separate site. Everything I offer, case studies and pricing, is there." %}
   </p>
 
   <a href="{{ site.services_external_url }}" target="_blank" rel="noopener"
      class="mt-10 group inline-flex items-center gap-2 px-5 py-3 border border-ink-300 dark:border-ink-600 rounded-md text-sm text-ink-900 dark:text-ink-100 hover:bg-ink-900 hover:text-white dark:hover:bg-ink-100 dark:hover:text-ink-950 transition">
-    Visit services site
+    {% trans "Visit services site" %}
     <span class="transition-transform group-hover:translate-x-0.5">↗</span>
   </a>
 </section>

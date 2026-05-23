@@ -1,23 +1,24 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Contacts — {{ site.owner_name }}{% endblock %}
+{% block title %}{% trans "Contacts" %} — {{ site.owner_name }}{% endblock %}
 
 {% block content %}
 <section class="fade-in">
-  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// contact</p>
-  <h1 class="text-4xl md:text-5xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">Contacts</h1>
+  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// {% trans "contact" %}</p>
+  <h1 class="text-4xl md:text-5xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">{% trans "Contacts" %}</h1>
   <p class="mt-4 text-ink-500 dark:text-ink-400 max-w-xl">
-    Direct channels and a form if you'd rather write a note.
+    {% trans "Direct channels and a form if you'd rather write a note." %}
   </p>
 
   <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12">
     <div>
-      <h2 class="text-sm font-mono text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-5">Channels</h2>
+      <h2 class="text-sm font-mono text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-5">{% trans "Channels" %}</h2>
       <ul class="space-y-4 text-ink-700 dark:text-ink-200">
         <li>
           <a href="mailto:{{ site.owner_email }}"
              class="group flex items-center justify-between border-b border-ink-200 dark:border-ink-800 py-3 hover:border-ink-500 dark:hover:border-ink-500 transition">
-            <span>Email · {{ site.owner_email }}</span>
+            <span>{% trans "Email" %} · {{ site.owner_email }}</span>
             <span class="text-ink-400 dark:text-ink-500 group-hover:text-ink-700 dark:group-hover:text-ink-200 transition">↗</span>
           </a>
         </li>
@@ -52,7 +53,7 @@
         <li>
           <a href="{{ site.social_links.buymeacoffee }}" target="_blank" rel="noopener"
              class="group flex items-center justify-between border-b border-ink-200 dark:border-ink-800 py-3 hover:border-ink-500 dark:hover:border-ink-500 transition">
-            <span>Buy Me a Coffee</span>
+            <span>{% trans "Buy Me a Coffee" %}</span>
             <span class="text-ink-400 dark:text-ink-500 group-hover:text-ink-700 dark:group-hover:text-ink-200 transition">↗</span>
           </a>
         </li>
@@ -60,7 +61,7 @@
     </div>
 
     <div>
-      <h2 class="text-sm font-mono text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-5">Send a message</h2>
+      <h2 class="text-sm font-mono text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-5">{% trans "Send a message" %}</h2>
       <form method="post" class="space-y-0">
         {% csrf_token %}
         {% for field in form %}
@@ -68,7 +69,7 @@
         {% endfor %}
         <button type="submit"
                 class="px-5 py-3 bg-ink-900 text-white dark:bg-ink-100 dark:text-ink-950 rounded-md font-medium text-sm hover:bg-black dark:hover:bg-white transition">
-          Send message
+          {% trans "Send message" %}
         </button>
       </form>
     </div>

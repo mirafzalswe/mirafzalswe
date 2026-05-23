@@ -23,11 +23,11 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = [
-    h.strip()
-    for h in os.environ.get("ALLOWED_HOSTS", "*").split(",")
-    if h.strip()
-]
+
+
+
+
+
 
 # ---------------------------------------------------------------------------
 # Applications
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -67,6 +68,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "apps.pages.context_processors.site_settings",
@@ -107,10 +109,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalisation
 # ---------------------------------------------------------------------------
 
-LANGUAGE_CODE = "en-us"
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGE_CODE = "en"
 TIME_ZONE = "UTC"
 USE_I18N = True
+USE_L10N = True
 USE_TZ = True
+
+LANGUAGES = [
+    ("en", _("English")),
+    ("ru", _("Russian")),
+    ("uz", _("Uzbek")),
+]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]
+
+LANGUAGE_COOKIE_NAME = "django_language"
+LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365
 
 # ---------------------------------------------------------------------------
 # Static & media files
@@ -161,7 +177,7 @@ SITE_CONTENT = {
     "owner_name": "Mirafzal Bakhodirov",
     "owner_tagline": "Founder | Developer | Startup Enthusiast",
     "owner_email": "mirafzalswe@gmail.com",
-    "services_external_url": "https://example.com",
+    "services_external_url": "https://abuali.uz/",
     "social_links": {
         "linkedin": "https://www.linkedin.com/in/mirafzal-bakhodirov/",
         "telegram": "https://t.me/MBswe",

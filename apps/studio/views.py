@@ -1,14 +1,12 @@
 import os
 from uuid import uuid4
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.utils.text import get_valid_filename
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from apps.blogs.markdown_utils import render_markdown
@@ -38,7 +36,7 @@ def post_create(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
-            messages.success(request, f"Post «{post.title}» created.")
+            messages.success(request, _("Post «%(title)s» created.") % {"title": post.title})
             return redirect("studio:post_edit", pk=post.pk)
     else:
         form = PostForm()
@@ -53,7 +51,7 @@ def post_edit(request, pk):
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
-            messages.success(request, "Saved.")
+            messages.success(request, _("Saved."))
             return redirect("studio:post_edit", pk=post.pk)
     else:
         form = PostForm(instance=post)
@@ -66,7 +64,7 @@ def post_edit(request, pk):
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    messages.success(request, "Post deleted.")
+    messages.success(request, _("Post deleted."))
     return redirect("studio:post_list")
 
 

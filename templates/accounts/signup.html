@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Sign up — {{ site.owner_name }}{% endblock %}
+{% block title %}{% trans "Sign up" %} — {{ site.owner_name }}{% endblock %}
 
 {% block content %}
 <section class="fade-in max-w-md mx-auto">
-  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// auth</p>
-  <h1 class="text-3xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">Create account</h1>
-  <p class="mt-2 text-sm text-ink-500 dark:text-ink-400">Needed to request access to personal blogs.</p>
+  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// {% trans "auth" %}</p>
+  <h1 class="text-3xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">{% trans "Create account" %}</h1>
+  <p class="mt-2 text-sm text-ink-500 dark:text-ink-400">{% trans "Needed to request access to personal blogs." %}</p>
 
   <form method="post" class="mt-10">
     {% csrf_token %}
@@ -16,13 +17,13 @@
 
     <button type="submit"
             class="w-full px-5 py-3 bg-ink-900 text-white dark:bg-ink-100 dark:text-ink-950 rounded-md font-medium text-sm hover:bg-black dark:hover:bg-white transition">
-      Sign up
+      {% trans "Sign up" %}
     </button>
   </form>
 
   <p class="mt-8 text-sm text-ink-500 dark:text-ink-400">
-    Already have an account?
-    <a href="{% url 'accounts:login' %}" class="text-ink-900 dark:text-ink-100 underline underline-offset-4 hover:text-black dark:hover:text-white">Log in</a>.
+    {% trans "Already have an account?" %}
+    <a href="{% url 'accounts:login' %}" class="text-ink-900 dark:text-ink-100 underline underline-offset-4 hover:text-black dark:hover:text-white">{% trans "Log in" %}</a>.
   </p>
 </section>
 {% endblock %}

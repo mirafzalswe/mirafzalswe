@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 
 from .models import MediaAsset, Post
 
@@ -8,12 +9,14 @@ from .models import MediaAsset, Post
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "category", "is_published", "created_at")
     list_filter = ("category", "is_published", "created_at")
-    search_fields = ("title", "content", "excerpt")
+    search_fields = ("title", "title_ru", "title_uz", "content", "excerpt")
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "created_at"
     fieldsets = (
-        (None, {"fields": ("title", "slug", "category", "is_published")}),
-        ("Content", {"fields": ("excerpt", "content", "cover_image")}),
+        (None, {"fields": ("slug", "category", "is_published", "cover_image")}),
+        (_("English"), {"fields": ("title", "excerpt", "content")}),
+        (_("Russian"), {"fields": ("title_ru", "excerpt_ru", "content_ru"), "classes": ("collapse",)}),
+        (_("Uzbek"), {"fields": ("title_uz", "excerpt_uz", "content_uz"), "classes": ("collapse",)}),
     )
 
     class Media:
@@ -44,7 +47,7 @@ class MediaAssetAdmin(admin.ModelAdmin):
             )
         return "—"
 
-    preview.short_description = "Preview"
+    preview.short_description = _("Preview")
 
     def markdown(self, obj):
         return format_html(
@@ -52,7 +55,7 @@ class MediaAssetAdmin(admin.ModelAdmin):
             obj.markdown_snippet,
         )
 
-    markdown.short_description = "Markdown (copy)"
+    markdown.short_description = _("Markdown (copy)")
 
     def markdown_preview(self, obj):
         if not obj.pk:

@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, FormView
 
 from .forms import AccessRequestForm, SignUpForm
@@ -20,7 +21,7 @@ class SignUpView(CreateView):
         login(self.request, self.object)
         messages.success(
             self.request,
-            "Account created. You can now request access to personal blogs.",
+            _("Account created. You can now request access to personal blogs."),
         )
         return response
 
@@ -49,7 +50,7 @@ class RequestAccessView(LoginRequiredMixin, FormView):
             user=self.request.user, status=AccessRequest.Status.PENDING
         ).first()
         if existing:
-            messages.info(self.request, "You already have a pending request.")
+            messages.info(self.request, _("You already have a pending request."))
             return redirect(self.success_url)
 
         access_request = form.save(commit=False)
@@ -62,6 +63,6 @@ class RequestAccessView(LoginRequiredMixin, FormView):
 
         messages.success(
             self.request,
-            "Request submitted. You'll get access once it's approved.",
+            _("Request submitted. You'll get access once it's approved."),
         )
         return super().form_valid(form)

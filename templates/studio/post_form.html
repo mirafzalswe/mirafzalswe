@@ -1,7 +1,8 @@
 {% extends "studio/_base.html" %}
+{% load i18n %}
 
-{% block title %}{% if post %}Edit — {{ post.title }}{% else %}New post{% endif %} — Studio{% endblock %}
-{% block studio_title %}{% if post %}Edit post{% else %}New post{% endif %}{% endblock %}
+{% block title %}{% if post %}{% blocktrans with title=post.title %}Edit — {{ title }}{% endblocktrans %}{% else %}{% trans "New post" %}{% endif %} — {% trans "Studio" %}{% endblock %}
+{% block studio_title %}{% if post %}{% trans "Edit post" %}{% else %}{% trans "New post" %}{% endif %}{% endblock %}
 
 {% block studio_content %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css" />
@@ -24,6 +25,13 @@
   .studio-label { display:block; font-family:"JetBrains Mono",monospace; font-size:11px; color:#737373; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.05em; }
   .studio-row { margin-bottom: 18px; }
   .studio-row-inline { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  .lang-tabs { display:flex; gap:4px; margin-bottom:10px; border-bottom:1px solid #e5e5e5; }
+  .dark .lang-tabs { border-color:#262626; }
+  .lang-tabs button { background:transparent; border:none; padding:6px 14px; font-family:"JetBrains Mono",monospace; font-size:11px; text-transform:uppercase; color:#737373; cursor:pointer; border-bottom:2px solid transparent; }
+  .lang-tabs button.active { color:#0a0a0a; border-bottom-color:#0a0a0a; }
+  .dark .lang-tabs button.active { color:#fafafa; border-bottom-color:#fafafa; }
+  .lang-pane { display:none; }
+  .lang-pane.active { display:block; }
   .EasyMDEContainer .CodeMirror { min-height: 520px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 14px; background: transparent; }
   .dark .EasyMDEContainer .CodeMirror { color: #e5e5e5; background: #0a0a0a; }
   .dark .EasyMDEContainer .editor-toolbar { background: #0f0f0f; border-color: #262626; }
@@ -45,7 +53,7 @@
 
   {% if form.errors %}
     <div class="mb-6 p-4 border border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-md">
-      <p class="font-mono text-xs uppercase tracking-wider mb-2">Please fix:</p>
+      <p class="font-mono text-xs uppercase tracking-wider mb-2">{% trans "Please fix:" %}</p>
       <ul class="list-disc pl-5 text-sm space-y-1">
         {% for field, errs in form.errors.items %}
           {% for e in errs %}<li><strong>{{ field }}:</strong> {{ e }}</li>{% endfor %}
@@ -54,55 +62,91 @@
     </div>
   {% endif %}
 
-  <div class="studio-row">
-    <label class="studio-label" for="id_title">Title</label>
-    {{ form.title }}
-    {% if form.title.errors %}<p class="text-xs text-red-500 mt-1">{{ form.title.errors|join:", " }}</p>{% endif %}
-  </div>
-
   <div class="studio-row studio-row-inline">
     <div>
-      <label class="studio-label" for="id_slug">Slug</label>
+      <label class="studio-label" for="id_slug">{% trans "Slug" %}</label>
       {{ form.slug }}
     </div>
     <div>
-      <label class="studio-label" for="id_category">Category</label>
+      <label class="studio-label" for="id_category">{% trans "Category" %}</label>
       {{ form.category }}
     </div>
   </div>
 
   <div class="studio-row">
-    <label class="studio-label" for="id_excerpt">Excerpt</label>
-    {{ form.excerpt }}
-  </div>
-
-  <div class="studio-row">
-    <label class="studio-label" for="id_cover_image">Cover image</label>
+    <label class="studio-label" for="id_cover_image">{% trans "Cover image" %}</label>
     {{ form.cover_image }}
-    {% if post.cover_image %}<p class="text-xs text-ink-400 mt-1">Current: <a href="{{ post.cover_image.url }}" target="_blank" class="underline">{{ post.cover_image.name }}</a></p>{% endif %}
+    {% if post.cover_image %}<p class="text-xs text-ink-400 mt-1">{% trans "Current:" %} <a href="{{ post.cover_image.url }}" target="_blank" class="underline">{{ post.cover_image.name }}</a></p>{% endif %}
   </div>
 
   <div class="studio-row">
-    <div class="flex items-center justify-between mb-2">
-      <label class="studio-label" style="margin:0;">Content (Markdown)</label>
-      <div class="flex items-center gap-4 text-xs">
-        <label class="flex items-center gap-2 text-ink-500 dark:text-ink-400 font-mono cursor-pointer">
-          {{ form.is_published }} <span>publish</span>
-        </label>
+    <p class="studio-label" style="margin-bottom:10px;">{% trans "Translations" %}</p>
+    <div class="lang-tabs" data-lang-tabs>
+      <button type="button" data-lang-tab="en" class="active">EN</button>
+      <button type="button" data-lang-tab="ru">RU</button>
+      <button type="button" data-lang-tab="uz">UZ</button>
+    </div>
+
+    <div class="lang-pane active" data-lang-pane="en">
+      <div class="studio-row">
+        <label class="studio-label" for="id_title">{% trans "Title (EN)" %}</label>
+        {{ form.title }}
+      </div>
+      <div class="studio-row">
+        <label class="studio-label" for="id_excerpt">{% trans "Excerpt (EN)" %}</label>
+        {{ form.excerpt }}
+      </div>
+      <div class="studio-row">
+        <div class="flex items-center justify-between mb-2">
+          <label class="studio-label" style="margin:0;">{% trans "Content (EN, Markdown)" %}</label>
+          <label class="flex items-center gap-2 text-ink-500 dark:text-ink-400 font-mono text-xs cursor-pointer">
+            {{ form.is_published }} <span>{% trans "publish" %}</span>
+          </label>
+        </div>
+        {{ form.content }}
       </div>
     </div>
-    {{ form.content }}
+
+    <div class="lang-pane" data-lang-pane="ru">
+      <div class="studio-row">
+        <label class="studio-label" for="id_title_ru">{% trans "Title (RU)" %}</label>
+        {{ form.title_ru }}
+      </div>
+      <div class="studio-row">
+        <label class="studio-label" for="id_excerpt_ru">{% trans "Excerpt (RU)" %}</label>
+        {{ form.excerpt_ru }}
+      </div>
+      <div class="studio-row">
+        <label class="studio-label" for="id_content_ru">{% trans "Content (RU, Markdown)" %}</label>
+        {{ form.content_ru }}
+      </div>
+    </div>
+
+    <div class="lang-pane" data-lang-pane="uz">
+      <div class="studio-row">
+        <label class="studio-label" for="id_title_uz">{% trans "Title (UZ)" %}</label>
+        {{ form.title_uz }}
+      </div>
+      <div class="studio-row">
+        <label class="studio-label" for="id_excerpt_uz">{% trans "Excerpt (UZ)" %}</label>
+        {{ form.excerpt_uz }}
+      </div>
+      <div class="studio-row">
+        <label class="studio-label" for="id_content_uz">{% trans "Content (UZ, Markdown)" %}</label>
+        {{ form.content_uz }}
+      </div>
+    </div>
   </div>
 
   <div class="flex items-center gap-3 mt-8 pt-4 border-t border-ink-200 dark:border-ink-800">
     <button type="submit"
             class="px-5 py-2.5 bg-ink-900 dark:bg-ink-50 text-white dark:text-ink-900 text-sm rounded-md hover:opacity-90 transition">
-      Save
+      {% trans "Save" %}
     </button>
-    <a href="{% url 'studio:post_list' %}" class="text-sm text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">Cancel</a>
+    <a href="{% url 'studio:post_list' %}" class="text-sm text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">{% trans "Cancel" %}</a>
     {% if post %}
-      <span class="ml-auto text-xs font-mono text-ink-400">updated {{ post.updated_at|date:"M d, H:i" }}</span>
-      <a href="{{ post.get_absolute_url }}" target="_blank" class="text-sm text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">view →</a>
+      <span class="ml-auto text-xs font-mono text-ink-400">{% trans "updated" %} {{ post.updated_at|date:"M d, H:i" }}</span>
+      <a href="{{ post.get_absolute_url }}" target="_blank" class="text-sm text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">{% trans "view" %} →</a>
     {% endif %}
   </div>
 </form>
@@ -113,57 +157,77 @@
 (function () {
   var csrfToken = "{{ csrf_token }}";
 
+  // Language tab switching
+  var tabs = document.querySelectorAll('[data-lang-tab]');
+  var panes = document.querySelectorAll('[data-lang-pane]');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      tabs.forEach(function (x) { x.classList.remove('active'); });
+      panes.forEach(function (x) { x.classList.remove('active'); });
+      t.classList.add('active');
+      var key = t.getAttribute('data-lang-tab');
+      document.querySelector('[data-lang-pane="' + key + '"]').classList.add('active');
+    });
+  });
+
   function highlightAll(root) {
     root.querySelectorAll("pre code").forEach(function (block) {
       try { hljs.highlightElement(block); } catch (e) {}
     });
   }
 
-  var editor = new EasyMDE({
-    element: document.getElementById("studio-content"),
-    autoDownloadFontAwesome: true,
-    spellChecker: false,
-    autosave: { enabled: false },
-    minHeight: "520px",
-    status: ["lines", "words", "cursor"],
-    previewClass: ["editor-preview", "prose-notion"],
-    toolbar: [
-      "bold", "italic", "strikethrough", "heading", "|",
-      "code", "quote", "unordered-list", "ordered-list", "|",
-      "link", "image", "table", "horizontal-rule", "|",
-      "preview", "side-by-side", "fullscreen", "|",
-      {
-        name: "upload",
-        action: uploadImage,
-        className: "fa fa-upload",
-        title: "Upload image",
+  function makeEditor(elementId) {
+    var el = document.getElementById(elementId);
+    if (!el) return null;
+    return new EasyMDE({
+      element: el,
+      autoDownloadFontAwesome: true,
+      spellChecker: false,
+      autosave: { enabled: false },
+      minHeight: "420px",
+      status: ["lines", "words", "cursor"],
+      previewClass: ["editor-preview", "prose-notion"],
+      toolbar: [
+        "bold", "italic", "strikethrough", "heading", "|",
+        "code", "quote", "unordered-list", "ordered-list", "|",
+        "link", "image", "table", "horizontal-rule", "|",
+        "preview", "side-by-side", "fullscreen", "|",
+        { name: "upload", action: function (ed) { uploadImage(ed); }, className: "fa fa-upload", title: "Upload image" },
+        { name: "sticker", action: function (ed) { openStickers(ed); }, className: "fa fa-smile-o", title: "Insert sticker" },
+        "|", "guide",
+      ],
+      renderingConfig: { codeSyntaxHighlighting: false },
+      previewRender: function (plainText, preview) {
+        var html = this.parent.markdown(plainText);
+        setTimeout(function () { preview.innerHTML = html; highlightAll(preview); }, 0);
+        return "rendering...";
       },
-      {
-        name: "sticker",
-        action: openStickers,
-        className: "fa fa-smile-o",
-        title: "Insert sticker",
-      },
-      "|", "guide",
-    ],
-    renderingConfig: { codeSyntaxHighlighting: false },
-    previewRender: function (plainText, preview) {
-      var html = this.parent.markdown(plainText);
-      setTimeout(function () {
-        preview.innerHTML = html;
-        highlightAll(preview);
-      }, 0);
-      return "rendering...";
-    },
-  });
-  window.__editor = editor;
+    });
+  }
 
-  var form = document.getElementById("studio-form");
-  form.addEventListener("submit", function () {
-    document.getElementById("studio-content").value = editor.value();
+  var editors = {};
+  editors.en = makeEditor("studio-content");
+  editors.ru = makeEditor("id_content_ru");
+  editors.uz = makeEditor("id_content_uz");
+
+  window.__editor = editors.en;
+
+  document.getElementById("studio-form").addEventListener("submit", function () {
+    Object.keys(editors).forEach(function (k) {
+      if (editors[k]) {
+        var area = editors[k].element;
+        if (area) area.value = editors[k].value();
+      }
+    });
   });
 
-  function uploadImage(editor) {
+  function activeEditor() {
+    var active = document.querySelector('[data-lang-tab].active');
+    var key = active ? active.getAttribute('data-lang-tab') : 'en';
+    return editors[key] || editors.en;
+  }
+
+  function uploadImage() {
     var kind = prompt("Upload as: type 'sticker' for sticker, anything else for image", "image");
     kind = (kind === "sticker") ? "sticker" : "image";
     var inp = document.createElement("input");
@@ -180,7 +244,7 @@
         credentials: "same-origin",
       }).then(function (r) { return r.json(); }).then(function (data) {
         if (data.markdown) {
-          editor.codemirror.replaceSelection("\n" + data.markdown + "\n");
+          activeEditor().codemirror.replaceSelection("\n" + data.markdown + "\n");
         } else {
           alert("Upload failed");
         }
@@ -189,20 +253,20 @@
     inp.click();
   }
 
-  function openStickers(editor) {
+  function openStickers() {
     fetch("{% url 'studio:stickers' %}", { credentials: "same-origin" })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var items = (data && data.items) || [];
         if (!items.length) {
-          if (confirm("No stickers yet. Upload one now?")) uploadSticker(editor);
+          if (confirm("No stickers yet. Upload one now?")) uploadSticker();
           return;
         }
-        showStickerModal(editor, items);
+        showStickerModal(items);
       });
   }
 
-  function uploadSticker(editor) {
+  function uploadSticker() {
     var inp = document.createElement("input");
     inp.type = "file"; inp.accept = "image/*";
     inp.onchange = function () {
@@ -215,13 +279,13 @@
         body: fd,
         credentials: "same-origin",
       }).then(function (r) { return r.json(); }).then(function (data) {
-        if (data.markdown) editor.codemirror.replaceSelection("\n" + data.markdown + "\n");
+        if (data.markdown) activeEditor().codemirror.replaceSelection("\n" + data.markdown + "\n");
       });
     };
     inp.click();
   }
 
-  function showStickerModal(editor, items) {
+  function showStickerModal(items) {
     var overlay = document.createElement("div");
     overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;";
     var panel = document.createElement("div");
@@ -237,7 +301,7 @@
       btn.type = "button";
       btn.innerHTML = '<img src="' + it.url + '" alt="" />';
       btn.onclick = function () {
-        editor.codemirror.replaceSelection(it.markdown);
+        activeEditor().codemirror.replaceSelection(it.markdown);
         document.body.removeChild(overlay);
       };
       grid.appendChild(btn);
@@ -252,31 +316,34 @@
     document.body.appendChild(overlay);
     document.getElementById("sticker-upload-btn").onclick = function () {
       document.body.removeChild(overlay);
-      uploadSticker(editor);
+      uploadSticker();
     };
   }
 
-  // Paste-to-upload for images
-  editor.codemirror.on("paste", function (cm, e) {
-    if (!e.clipboardData || !e.clipboardData.items) return;
-    for (var i = 0; i < e.clipboardData.items.length; i++) {
-      var it = e.clipboardData.items[i];
-      if (it.type && it.type.indexOf("image/") === 0) {
-        var f = it.getAsFile(); if (!f) continue;
-        e.preventDefault();
-        var fd = new FormData();
-        fd.append("file", f); fd.append("kind", "image");
-        fetch("{% url 'studio:upload' %}", {
-          method: "POST",
-          headers: { "X-CSRFToken": csrfToken },
-          body: fd,
-          credentials: "same-origin",
-        }).then(function (r) { return r.json(); }).then(function (data) {
-          if (data.markdown) cm.replaceSelection("\n" + data.markdown + "\n");
-        });
-        return;
+  // Paste-to-upload for images on every editor
+  Object.keys(editors).forEach(function (k) {
+    if (!editors[k]) return;
+    editors[k].codemirror.on("paste", function (cm, e) {
+      if (!e.clipboardData || !e.clipboardData.items) return;
+      for (var i = 0; i < e.clipboardData.items.length; i++) {
+        var it = e.clipboardData.items[i];
+        if (it.type && it.type.indexOf("image/") === 0) {
+          var f = it.getAsFile(); if (!f) continue;
+          e.preventDefault();
+          var fd = new FormData();
+          fd.append("file", f); fd.append("kind", "image");
+          fetch("{% url 'studio:upload' %}", {
+            method: "POST",
+            headers: { "X-CSRFToken": csrfToken },
+            body: fd,
+            credentials: "same-origin",
+          }).then(function (r) { return r.json(); }).then(function (data) {
+            if (data.markdown) cm.replaceSelection("\n" + data.markdown + "\n");
+          });
+          return;
+        }
       }
-    }
+    });
   });
 })();
 </script>

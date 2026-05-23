@@ -1,14 +1,15 @@
 {% extends "studio/_base.html" %}
+{% load i18n %}
 
-{% block title %}Studio — Posts{% endblock %}
-{% block studio_title %}Posts{% endblock %}
+{% block title %}{% trans "Studio — Posts" %}{% endblock %}
+{% block studio_title %}{% trans "Posts" %}{% endblock %}
 
 {% block studio_content %}
 <div class="flex justify-between items-center mb-6">
-  <p class="text-sm text-ink-500 dark:text-ink-400">{{ posts|length }} post{{ posts|length|pluralize }}</p>
+  <p class="text-sm text-ink-500 dark:text-ink-400">{% blocktrans count counter=posts|length %}{{ counter }} post{% plural %}{{ counter }} posts{% endblocktrans %}</p>
   <a href="{% url 'studio:post_create' %}"
      class="px-4 py-2 bg-ink-900 dark:bg-ink-50 text-white dark:text-ink-900 text-sm rounded-md hover:opacity-90 transition">
-    + New post
+    + {% trans "New post" %}
   </a>
 </div>
 
@@ -19,27 +20,27 @@
         <div class="flex items-center gap-3">
           <span class="font-mono text-[11px] px-2 py-0.5 rounded border border-ink-200 dark:border-ink-700 text-ink-500 dark:text-ink-400 uppercase">{{ post.category }}</span>
           {% if post.is_published %}
-            <span class="font-mono text-[11px] text-green-600 dark:text-green-400">● published</span>
+            <span class="font-mono text-[11px] text-green-600 dark:text-green-400">● {% trans "published" %}</span>
           {% else %}
-            <span class="font-mono text-[11px] text-ink-400">○ draft</span>
+            <span class="font-mono text-[11px] text-ink-400">○ {% trans "draft" %}</span>
           {% endif %}
         </div>
         <a href="{% url 'studio:post_edit' post.pk %}" class="block mt-1 text-ink-900 dark:text-ink-100 font-medium truncate hover:underline">{{ post.title }}</a>
         <p class="text-xs text-ink-400 dark:text-ink-500 font-mono mt-1">{{ post.updated_at|date:"M d, Y · H:i" }}</p>
       </div>
       <div class="flex items-center gap-3 text-sm shrink-0 ml-4">
-        <a href="{{ post.get_absolute_url }}" target="_blank" class="text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">view →</a>
-        <a href="{% url 'studio:post_edit' post.pk %}" class="text-ink-700 dark:text-ink-200 hover:text-ink-900 dark:hover:text-white">edit</a>
-        <form method="post" action="{% url 'studio:post_delete' post.pk %}" onsubmit="return confirm('Delete «{{ post.title|escapejs }}»?');" class="inline">
+        <a href="{{ post.get_absolute_url }}" target="_blank" class="text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">{% trans "view" %} →</a>
+        <a href="{% url 'studio:post_edit' post.pk %}" class="text-ink-700 dark:text-ink-200 hover:text-ink-900 dark:hover:text-white">{% trans "edit" %}</a>
+        <form method="post" action="{% url 'studio:post_delete' post.pk %}" onsubmit="return confirm('{% blocktrans with title=post.title|escapejs %}Delete «{{ title }}»?{% endblocktrans %}');" class="inline">
           {% csrf_token %}
-          <button class="text-red-500 hover:text-red-700">delete</button>
+          <button class="text-red-500 hover:text-red-700">{% trans "delete" %}</button>
         </form>
       </div>
     </div>
   {% empty %}
     <div class="p-12 text-center text-ink-400 dark:text-ink-500">
-      <p class="font-mono text-sm">No posts yet.</p>
-      <a href="{% url 'studio:post_create' %}" class="inline-block mt-4 text-ink-700 dark:text-ink-200 hover:underline">Create your first post →</a>
+      <p class="font-mono text-sm">{% trans "No posts yet." %}</p>
+      <a href="{% url 'studio:post_create' %}" class="inline-block mt-4 text-ink-700 dark:text-ink-200 hover:underline">{% trans "Create your first post" %} →</a>
     </div>
   {% endfor %}
 </div>

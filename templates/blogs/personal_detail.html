@@ -1,20 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}{{ post.title }} — Personal — {{ site.owner_name }}{% endblock %}
+{% block title %}{{ post.display_title }} — {% trans "Personal" %} — {{ site.owner_name }}{% endblock %}
 
 {% block content %}
 <article class="fade-in max-w-2xl mx-auto">
-  <a href="{% url 'blogs:personal_list' %}" class="font-mono text-xs text-ink-400 dark:text-ink-500 hover:text-ink-700 dark:hover:text-ink-200 transition">← personal blogs</a>
+  <a href="{% url 'blogs:personal_list' %}" class="font-mono text-xs text-ink-400 dark:text-ink-500 hover:text-ink-700 dark:hover:text-ink-200 transition">← {% trans "personal blogs" %}</a>
 
-  <p class="mt-6 font-mono text-xs text-ink-400 dark:text-ink-500">{{ post.created_at|date:"M d, Y" }} · Personal</p>
-  <h1 class="mt-2 text-3xl md:text-4xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">{{ post.title }}</h1>
+  <p class="mt-6 font-mono text-xs text-ink-400 dark:text-ink-500">{{ post.created_at|date:"DATE_FORMAT" }} · {% trans "Personal" %}</p>
+  <h1 class="mt-2 text-3xl md:text-4xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">{{ post.display_title }}</h1>
 
   {% if post.cover_image %}
     <img src="{{ post.cover_image.url }}" alt="" class="mt-8 rounded-md border border-ink-200 dark:border-ink-800" />
   {% endif %}
 
   <div class="prose-minimal mt-10">
-    {{ post.content_html|safe }}
+    {{ post.display_content_html|safe }}
   </div>
 </article>
 {% endblock %}

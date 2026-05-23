@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}{{ site.owner_name }} — {{ site.owner_tagline }}{% endblock %}
 
 {% block content %}
 <section class="min-h-[calc(100vh-12rem)] flex flex-col justify-center fade-in">
-  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// portfolio</p>
+  <p class="font-mono text-xs text-ink-500 dark:text-ink-400 mb-6">// {% trans "portfolio" %}</p>
 
   <h1 class="text-5xl md:text-7xl font-semibold tracking-tightest leading-[1.05] text-ink-900 dark:text-ink-50">
     {{ site.owner_name }}
@@ -17,35 +18,35 @@
   <div class="mt-12 flex flex-wrap gap-3">
     <a href="{% url 'blogs:index' %}"
        class="group inline-flex items-center gap-2 px-5 py-3 border border-ink-300 dark:border-ink-600 rounded-md text-sm text-ink-900 dark:text-ink-100 hover:bg-ink-900 hover:text-white dark:hover:bg-ink-100 dark:hover:text-ink-950 transition">
-      Blogs
+      {% trans "Blogs" %}
       <span class="transition-transform group-hover:translate-x-0.5">→</span>
     </a>
     <a href="{% url 'pages:services' %}"
        class="inline-flex items-center gap-2 px-5 py-3 border border-ink-300 dark:border-ink-600 rounded-md text-sm text-ink-700 dark:text-ink-300 hover:border-ink-600 dark:hover:border-ink-200 hover:text-ink-900 dark:hover:text-white transition">
-      Services
+      {% trans "Services" %}
     </a>
     <a href="{% url 'pages:about' %}"
        class="inline-flex items-center gap-2 px-5 py-3 border border-ink-300 dark:border-ink-600 rounded-md text-sm text-ink-700 dark:text-ink-300 hover:border-ink-600 dark:hover:border-ink-200 hover:text-ink-900 dark:hover:text-white transition">
-      About Me
+      {% trans "About Me" %}
     </a>
     <a href="{% url 'contact:index' %}"
        class="inline-flex items-center gap-2 px-5 py-3 border border-ink-300 dark:border-ink-600 rounded-md text-sm text-ink-700 dark:text-ink-300 hover:border-ink-600 dark:hover:border-ink-200 hover:text-ink-900 dark:hover:text-white transition">
-      Contacts
+      {% trans "Contacts" %}
     </a>
   </div>
 
   <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
     <div class="border border-ink-200 dark:border-ink-800 rounded-md p-5">
-      <p class="font-mono text-xs text-ink-500 dark:text-ink-400">01 — focus</p>
-      <p class="mt-3 text-ink-700 dark:text-ink-200">Building startups from idea to product.</p>
+      <p class="font-mono text-xs text-ink-500 dark:text-ink-400">01 — {% trans "focus" %}</p>
+      <p class="mt-3 text-ink-700 dark:text-ink-200">{% trans "Building startups from idea to product." %}</p>
     </div>
     <div class="border border-ink-200 dark:border-ink-800 rounded-md p-5">
-      <p class="font-mono text-xs text-ink-500 dark:text-ink-400">02 — craft</p>
-      <p class="mt-3 text-ink-700 dark:text-ink-200">Full-stack engineering with a product mindset.</p>
+      <p class="font-mono text-xs text-ink-500 dark:text-ink-400">02 — {% trans "craft" %}</p>
+      <p class="mt-3 text-ink-700 dark:text-ink-200">{% trans "Full-stack engineering with a product mindset." %}</p>
     </div>
     <div class="border border-ink-200 dark:border-ink-800 rounded-md p-5">
-      <p class="font-mono text-xs text-ink-500 dark:text-ink-400">03 — writing</p>
-      <p class="mt-3 text-ink-700 dark:text-ink-200">Tech essays and personal notes from the journey.</p>
+      <p class="font-mono text-xs text-ink-500 dark:text-ink-400">03 — {% trans "writing" %}</p>
+      <p class="mt-3 text-ink-700 dark:text-ink-200">{% trans "Tech essays and personal notes from the journey." %}</p>
     </div>
   </div>
 </section>

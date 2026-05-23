@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 
 from .forms import ContactForm
@@ -26,6 +27,6 @@ class ContactView(CreateView):
         )
         email.send(fail_silently=True)
         messages.success(
-            self.request, "Thanks — your message is in. I'll reply soon."
+            self.request, _("Thanks — your message is in. I'll reply soon.")
         )
         return response
