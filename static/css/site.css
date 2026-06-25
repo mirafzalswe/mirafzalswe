@@ -28,13 +28,16 @@ body {
    =========================================================== */
 .prose-minimal,
 .prose-notion {
-  color: #37352f;
-  font-size: 16px;
-  line-height: 1.7;
+  /* Medium-style reading typography */
+  font-family: "Source Serif 4", Charter, "Iowan Old Style", Georgia, Cambria, "Times New Roman", Times, serif;
+  color: #292929;
+  font-size: clamp(1.125rem, 1.02rem + 0.5vw, 1.3125rem); /* ~18px → 21px like Medium */
+  line-height: 1.58;
+  letter-spacing: -0.003em;
 }
-.dark .prose-minimal, .dark .prose-notion { color: #e5e5e5; }
+.dark .prose-minimal, .dark .prose-notion { color: #e8e6e3; }
 
-.prose-minimal p, .prose-notion p { margin: 0 0 1.1rem; }
+.prose-minimal p, .prose-notion p { margin: 0 0 1.6em; }
 .prose-minimal > *:first-child, .prose-notion > *:first-child { margin-top: 0; }
 .prose-minimal > *:last-child, .prose-notion > *:last-child { margin-bottom: 0; }
 
@@ -42,21 +45,23 @@ body {
 .prose-minimal h2, .prose-notion h2,
 .prose-minimal h3, .prose-notion h3,
 .prose-minimal h4, .prose-notion h4 {
+  /* Medium keeps headings in a bold sans-serif while body stays serif */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #0a0a0a;
+  letter-spacing: -0.02em;
+  color: #242424;
   line-height: 1.25;
-  margin-top: 2em;
-  margin-bottom: 0.5em;
+  margin-top: 1.9em;
+  margin-bottom: 0.4em;
 }
 .dark .prose-minimal h1, .dark .prose-notion h1,
 .dark .prose-minimal h2, .dark .prose-notion h2,
 .dark .prose-minimal h3, .dark .prose-notion h3,
 .dark .prose-minimal h4, .dark .prose-notion h4 { color: #fff; }
-.prose-minimal h1, .prose-notion h1 { font-size: 1.875rem; }
-.prose-minimal h2, .prose-notion h2 { font-size: 1.5rem; }
-.prose-minimal h3, .prose-notion h3 { font-size: 1.25rem; }
-.prose-minimal h4, .prose-notion h4 { font-size: 1.05rem; }
+.prose-minimal h1, .prose-notion h1 { font-size: 1.9rem; }
+.prose-minimal h2, .prose-notion h2 { font-size: 1.55rem; }
+.prose-minimal h3, .prose-notion h3 { font-size: 1.28rem; }
+.prose-minimal h4, .prose-notion h4 { font-size: 1.08rem; }
 
 .prose-minimal a, .prose-notion a {
   color: inherit;
@@ -78,10 +83,11 @@ body {
 .prose-minimal li, .prose-notion li { margin-bottom: 0.4rem; }
 
 .prose-minimal blockquote, .prose-notion blockquote {
-  border-left: 3px solid #37352f;
-  padding: 0.2rem 0 0.2rem 1rem;
-  margin: 1.25rem 0;
-  color: #37352f;
+  border-left: 3px solid #292929;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  margin: 1.5em 0;
+  color: #515151;
+  font-style: italic;
 }
 .dark .prose-minimal blockquote, .dark .prose-notion blockquote {
   border-left-color: #e5e5e5;

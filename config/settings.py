@@ -128,6 +128,11 @@ LANGUAGES = [
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
 
+# Auto-translation of posts: write in one language, the rest are filled in on
+# save. Set POST_AUTO_TRANSLATE=False to disable; provider: google|mymemory|deepl.
+POST_AUTO_TRANSLATE = os.environ.get("POST_AUTO_TRANSLATE", "True") == "True"
+POST_TRANSLATE_PROVIDER = os.environ.get("POST_TRANSLATE_PROVIDER", "google")
+
 LANGUAGE_COOKIE_NAME = "django_language"
 LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365
 

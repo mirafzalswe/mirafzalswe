@@ -1,9 +1,37 @@
+import hashlib
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
 
-from .models import Post
+from .models import Post, PostView
+
+
+def _visitor_key(request) -> str:
+    """Stable identifier for a visitor used to deduplicate views."""
+    if request.user.is_authenticated:
+        return f"u{request.user.pk}"
+    forwarded = request.META.get("HTTP_X_FORWARDED_FOR", "")
+    ip = forwarded.split(",")[0].strip() or request.META.get("REMOTE_ADDR", "")
+    ua = request.META.get("HTTP_USER_AGENT", "")
+    return hashlib.sha256(f"{ip}|{ua}".encode("utf-8")).hexdigest()[:64]
+
+
+class RecordUniqueViewMixin:
+    """Count one view per unique visitor for the post being displayed."""
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        post = getattr(self, "object", None)
+        if post is not None:
+            _, created = PostView.objects.get_or_create(
+                post=post, visitor_key=_visitor_key(request)
+            )
+            if created:
+                Post.objects.filter(pk=post.pk).update(views=F("views") + 1)
+        return response
 
 
 class BlogIndexView(TemplateView):
@@ -21,7 +49,7 @@ class TechBlogListView(ListView):
         )
 
 
-class TechBlogDetailView(DetailView):
+class TechBlogDetailView(RecordUniqueViewMixin, DetailView):
     template_name = "blogs/tech_detail.html"
     context_object_name = "post"
 
@@ -52,7 +80,7 @@ class PersonalBlogListView(PersonalAccessMixin, ListView):
         )
 
 
-class PersonalBlogDetailView(PersonalAccessMixin, DetailView):
+class PersonalBlogDetailView(PersonalAccessMixin, RecordUniqueViewMixin, DetailView):
     template_name = "blogs/personal_detail.html"
     context_object_name = "post"
 

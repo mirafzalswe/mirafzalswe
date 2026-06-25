@@ -2,15 +2,16 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from .models import MediaAsset, Post
+from .models import MediaAsset, Post, PostView
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "is_published", "created_at")
+    list_display = ("title", "category", "is_published", "views", "created_at")
     list_filter = ("category", "is_published", "created_at")
     search_fields = ("title", "title_ru", "title_uz", "content", "excerpt")
     prepopulated_fields = {"slug": ("title",)}
+    readonly_fields = ("views",)
     date_hierarchy = "created_at"
     fieldsets = (
         (None, {"fields": ("slug", "category", "is_published", "cover_image")}),
@@ -64,3 +65,11 @@ class MediaAssetAdmin(admin.ModelAdmin):
             '<textarea readonly style="width:100%;height:60px;">{}</textarea>',
             obj.markdown_snippet,
         )
+
+
+@admin.register(PostView)
+class PostViewAdmin(admin.ModelAdmin):
+    list_display = ("post", "visitor_key", "created_at")
+    list_filter = ("created_at",)
+    search_fields = ("post__title", "visitor_key")
+    readonly_fields = ("post", "visitor_key", "created_at")

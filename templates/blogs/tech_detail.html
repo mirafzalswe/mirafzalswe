@@ -7,7 +7,7 @@
 <article class="fade-in max-w-2xl mx-auto">
   <a href="{% url 'blogs:tech_list' %}" class="font-mono text-xs text-ink-400 dark:text-ink-500 hover:text-ink-700 dark:hover:text-ink-200 transition">← {% trans "tech blogs" %}</a>
 
-  <p class="mt-6 font-mono text-xs text-ink-400 dark:text-ink-500">{{ post.created_at|date:"DATE_FORMAT" }} · {% trans "Tech" %}</p>
+  <p class="mt-6 font-mono text-xs text-ink-400 dark:text-ink-500">{{ post.created_at|date:"DATE_FORMAT" }} · {% trans "Tech" %} · 👁 {{ post.views }} {% blocktrans count counter=post.views %}view{% plural %}views{% endblocktrans %}</p>
   <h1 class="mt-2 text-3xl md:text-4xl font-semibold tracking-tightest text-ink-900 dark:text-ink-50">{{ post.display_title }}</h1>
 
   {% if post.cover_image %}

@@ -78,6 +78,58 @@ def preview(request):
 @login_required
 @staff_only
 @require_POST
+def translate(request):
+    """Translate a post from one language into the other two.
+
+    The author writes in a single language and hits "Translate"; we fill the
+    remaining languages' title / excerpt / content and return them as JSON so
+    the form can update its fields in place (nothing is saved here).
+    """
+    from django.conf import settings
+    from apps.blogs.translation import (
+        LANGS, FIELDS, field_attr, autofill_translations, detect_source_lang,
+    )
+
+    # Build an unsaved Post carrying whatever the form currently holds.
+    attrs = {}
+    for field in FIELDS:
+        for lang in LANGS:
+            a = field_attr(field, lang)
+            attrs[a] = request.POST.get(a, "")
+    post = Post(**attrs)
+
+    # Prefer the language the author is editing; fall back to first-filled.
+    def _has(lang):
+        return any((attrs.get(field_attr(f, lang)) or "").strip() for f in FIELDS)
+
+    source = request.POST.get("source", "")
+    if source not in LANGS or not _has(source):
+        source = detect_source_lang(post)
+    if source is None:
+        return JsonResponse(
+            {"ok": False, "error": _("Write a title and content in one language first.")},
+            status=400,
+        )
+
+    provider = getattr(settings, "POST_TRANSLATE_PROVIDER", "google")
+    overwrite = request.POST.get("overwrite", "1") == "1"
+    try:
+        changed = autofill_translations(
+            post, provider=provider, overwrite=overwrite, source=source,
+        )
+    except Exception as exc:  # missing dep / network / bad key
+        return JsonResponse({"ok": False, "error": str(exc)}, status=502)
+
+    data = {
+        field_attr(f, lang): getattr(post, field_attr(f, lang), "") or ""
+        for f in FIELDS for lang in LANGS
+    }
+    return JsonResponse({"ok": True, "source": source, "changed": changed, "fields": data})
+
+
+@login_required
+@staff_only
+@require_POST
 def upload(request):
     f = request.FILES.get("file")
     if not f:

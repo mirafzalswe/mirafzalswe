@@ -51,6 +51,14 @@
 <form method="post" enctype="multipart/form-data" id="studio-form" novalidate>
   {% csrf_token %}
 
+  {% if post %}
+    <div class="mb-6 flex items-center gap-2 text-sm text-ink-500 dark:text-ink-400">
+      <span class="font-mono text-[11px] px-2 py-1 rounded border border-ink-200 dark:border-ink-700">
+        👁 {{ post.views }} {% blocktrans count counter=post.views %}unique view{% plural %}unique views{% endblocktrans %}
+      </span>
+    </div>
+  {% endif %}
+
   {% if form.errors %}
     <div class="mb-6 p-4 border border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-md">
       <p class="font-mono text-xs uppercase tracking-wider mb-2">{% trans "Please fix:" %}</p>
@@ -86,6 +94,15 @@
       <button type="button" data-lang-tab="ru">RU</button>
       <button type="button" data-lang-tab="uz">UZ</button>
     </div>
+
+    <div class="flex items-center gap-3 mb-2">
+      <button type="button" id="translate-btn"
+              class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-mono border border-ink-300 dark:border-ink-700 rounded-md hover:border-ink-600 dark:hover:border-ink-300 hover:text-ink-900 dark:hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed">
+        🌐 <span id="translate-btn-label">{% trans "Translate to the other languages" %}</span>
+      </button>
+      <span id="translate-status" class="text-xs text-ink-500 dark:text-ink-400"></span>
+    </div>
+    <p class="text-xs text-ink-500 dark:text-ink-400 mb-3">{% trans "Write in any one language, switch to its tab, then Translate. Code blocks and links are preserved. Machine translation is a draft — review before publishing." %}</p>
 
     <div class="lang-pane active" data-lang-pane="en">
       <div class="studio-row">
@@ -345,6 +362,68 @@
       }
     });
   });
+  // ---- Translate from the active language into the other two ----
+  var TR_TEXT = {
+    title:   { en: "id_title",   ru: "id_title_ru",   uz: "id_title_uz" },
+    excerpt: { en: "id_excerpt", ru: "id_excerpt_ru", uz: "id_excerpt_uz" }
+  };
+  function trGet(id) { var el = document.getElementById(id); return el ? el.value : ""; }
+  function trSet(id, v) { var el = document.getElementById(id); if (el) el.value = v; }
+  var LANGS3 = ["en", "ru", "uz"];
+  function fieldName(base, lang) { return lang === "en" ? base : base + "_" + lang; }
+
+  var trBtn = document.getElementById("translate-btn");
+  var trStatus = document.getElementById("translate-status");
+  if (trBtn) {
+    trBtn.addEventListener("click", function () {
+      var activeTab = document.querySelector('[data-lang-tab].active');
+      var source = activeTab ? activeTab.getAttribute('data-lang-tab') : 'en';
+
+      var data = new FormData();
+      data.append("csrfmiddlewaretoken", csrfToken);
+      data.append("source", source);
+      Object.keys(TR_TEXT).forEach(function (base) {
+        LANGS3.forEach(function (lang) {
+          data.append(fieldName(base, lang), trGet(TR_TEXT[base][lang]));
+        });
+      });
+      LANGS3.forEach(function (lang) {
+        data.append(fieldName("content", lang), editors[lang] ? editors[lang].value() : "");
+      });
+
+      trBtn.disabled = true;
+      trStatus.textContent = "{% trans 'Translating… this can take a few seconds' %}";
+      fetch("{% url 'studio:translate' %}", {
+        method: "POST", body: data, credentials: "same-origin",
+        headers: { "X-CSRFToken": csrfToken }
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.j.ok) {
+            trStatus.textContent = "⚠ " + (res.j.error || "Translation failed");
+            return;
+          }
+          var f = res.j.fields;
+          var src = res.j.source;
+          Object.keys(TR_TEXT).forEach(function (base) {
+            LANGS3.forEach(function (lang) {
+              if (lang === src) return;
+              trSet(TR_TEXT[base][lang], f[fieldName(base, lang)] || "");
+            });
+          });
+          LANGS3.forEach(function (lang) {
+            if (lang === src) return;
+            if (editors[lang]) editors[lang].value(f[fieldName("content", lang)] || "");
+          });
+          var others = LANGS3.filter(function (l) { return l !== src; })
+                             .map(function (l) { return l.toUpperCase(); }).join(", ");
+          trStatus.textContent = "✓ " + src.toUpperCase() + " → " + others;
+        })
+        .catch(function (e) { trStatus.textContent = "⚠ " + e; })
+        .finally(function () { trBtn.disabled = false; });
+    });
+  }
+
 })();
 </script>
 {% endblock %}

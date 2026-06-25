@@ -26,7 +26,11 @@
           {% endif %}
         </div>
         <a href="{% url 'studio:post_edit' post.pk %}" class="block mt-1 text-ink-900 dark:text-ink-100 font-medium truncate hover:underline">{{ post.title }}</a>
-        <p class="text-xs text-ink-400 dark:text-ink-500 font-mono mt-1">{{ post.updated_at|date:"M d, Y · H:i" }}</p>
+        <p class="text-xs text-ink-400 dark:text-ink-500 font-mono mt-1">
+          {{ post.updated_at|date:"M d, Y · H:i" }}
+          <span class="mx-1">·</span>
+          <span title="{% trans 'Unique views' %}">👁 {{ post.views }} {% blocktrans count counter=post.views %}view{% plural %}views{% endblocktrans %}</span>
+        </p>
       </div>
       <div class="flex items-center gap-3 text-sm shrink-0 ml-4">
         <a href="{{ post.get_absolute_url }}" target="_blank" class="text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white">{% trans "view" %} →</a>
